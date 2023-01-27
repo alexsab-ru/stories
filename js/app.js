@@ -33,8 +33,6 @@ document.addEventListener('DOMContentLoaded', () => {
 	let diffTime = 0;
 	let timeout;
 
-	console.log(timeout);
-
 	document.body.style.setProperty('--time', delay/1000+'s')
 
 	swiper.pagination.bullets.forEach((bullet, idx) => {
@@ -72,11 +70,8 @@ document.addEventListener('DOMContentLoaded', () => {
 	window.onfocus = play;
 	
 	swiper.on('slideChange', slider => {
-		if(slider.activeIndex == swiper.pagination.bullets.length - 1){
-			clearTimeout(timeout);
-		}else{
-			clearTimeout(timeout);
-			//time = Date.now();
+		clearTimeout(timeout);
+		if(slider.activeIndex != swiper.pagination.bullets.length - 1){
 			delay = defaultDelay;
 			nextSlide(delay);
 		}
