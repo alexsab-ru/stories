@@ -5,7 +5,7 @@ document.addEventListener('DOMContentLoaded', () => {
 	navigator.userAgent.toLowerCase().match(/(ipad|iphone)/)) {
 		screen.orientation.lock("portrait");
 		swiper = new Swiper('.swiper', {
-			slidesPerView: 2,
+			slidesPerView: 1,
 			longSwipes: false,
 			pagination: {
 				el: '.swiper-pagination',
