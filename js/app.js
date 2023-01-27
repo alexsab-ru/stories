@@ -1,15 +1,8 @@
 document.addEventListener('DOMContentLoaded', () => {
 
-	const delay = 5000;
-
 	const swiper = new Swiper('.swiper', {
 		slidesPerView: 1,
 		slidesPerGroup: 1,
-		autoplay: {
-			delay: delay,
-			stopOnLastSlide: true,
-			disableOnInteraction: false
-		},
 		slidesPerGroupAuto: true,
 		longSwipes: false,
 		slideToClickedSlide: true,
@@ -33,33 +26,60 @@ document.addEventListener('DOMContentLoaded', () => {
 		}
 	});
 	
+	let defaultDelay = 3000;
+	let delay = defaultDelay;
 	let time = 0;
-	let interval = null;
+	let time2 = 0;
+	let diffTime = 0;
+	let timeout;
+
+	console.log(timeout);
+
+	document.body.style.setProperty('--time', delay/1000+'s')
 
 	swiper.pagination.bullets.forEach((bullet, idx) => {
 		if(idx == 0)
 			bullet.classList.add('timing')
 	});
 
-	function restOfTime(){
-		interval = setInterval(() => {
-			time = time+100;
-			if(time == delay || time > delay){
-				clearInterval(interval);
-			}
-			console.log(time);
-		}, 100)
+	function nextSlide(delay){
+		time = Date.now();
+		timeout = setTimeout(() => {
+			swiper.slideNext()
+		}, delay)
 	}
 
-	// restOfTime()
+	nextSlide(delay)
+
+	function pause() {
+		time2 = Date.now();
+		clearTimeout(timeout);
+		swiper.disable()
+		document.body.classList.add('paused');
+	}
+	
+	function play() {
+		swiper.enable();
+		clearTimeout(timeout);
+		diffTime = time2 - time;
+		delay = defaultDelay - diffTime;
+		nextSlide(delay);
+		//time = Date.now();
+		document.body.classList.remove('paused');
+	}
+	
+	window.onblur = pause;
+	window.onfocus = play;
 	
 	swiper.on('slideChange', slider => {
-		swiper.params.autoplay.delay = delay;
-		if(slider.activeIndex != swiper.pagination.bullets.length - 1){
-			swiper.autoplay.start()
+		if(slider.activeIndex == swiper.pagination.bullets.length - 1){
+			clearTimeout(timeout);
+		}else{
+			clearTimeout(timeout);
+			//time = Date.now();
+			delay = defaultDelay;
+			nextSlide(delay);
 		}
-		time = 0;
-		// restOfTime()
 		swiper.pagination.bullets.forEach((bullet, idx) => {
 			bullet.classList.remove('timing');
 			bullet.classList.remove('completed');
@@ -70,23 +90,5 @@ document.addEventListener('DOMContentLoaded', () => {
 			}
 		})
 	})
-	
-	function pause() {
-		document.body.classList.add('paused');
-		swiper.autoplay.pause()
-		clearInterval(interval);
-	}
-	
-	function play() {
-		document.body.classList.remove('paused');
-		document.body.classList.add('return');
-		swiper.params.autoplay.delay = delay - time;
-		time = 0;
-		swiper.autoplay.run()
-		// restOfTime();
-	}
-	
-	window.onblur = pause;
-	window.onfocus = play;
 
 })
