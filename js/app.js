@@ -50,6 +50,8 @@ document.addEventListener('DOMContentLoaded', () => {
 			console.log(time);
 		}, 100)
 	}
+
+	// restOfTime()
 	
 	swiper.on('slideChange', slider => {
 		swiper.params.autoplay.delay = delay;
