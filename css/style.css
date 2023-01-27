@@ -71,6 +71,11 @@ body{
 
 .swiper-pagination-bullet.timing::before{
 	animation: width 5.2s forwards linear;
+	animation-play-state: running;
+}
+.paused .swiper-pagination-bullet.timing::before{
+	animation: width 5.2s forwards linear;
+	animation-play-state: paused;
 }
 .swiper-pagination-bullet.completed::before{
 	width: 100%;
