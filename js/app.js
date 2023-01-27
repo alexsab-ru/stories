@@ -1,30 +1,43 @@
 document.addEventListener('DOMContentLoaded', () => {
-
-	const swiper = new Swiper('.swiper', {
-		slidesPerView: 1,
-		slidesPerGroup: 1,
-		slidesPerGroupAuto: true,
-		longSwipes: false,
-		slideToClickedSlide: true,
-		centeredSlides: true,
-		pagination: {
-			el: '.swiper-pagination',
-			clickable: true,
-		},
-		navigation: {
-			nextEl: '.swiper-button-next',
-			prevEl: '.swiper-button-prev',
-		},
-		breakpoints: {
-			320: {
-				slidesPerView: 1,
-				centeredSlides: false,
+	let swiper;
+	if (/Android|webOS|iPhone|iPad|iPod|BlackBerry|BB|PlayBook|IEMobile|Windows Phone|Kindle|Silk|Opera Mini/i.test(navigator.userAgent) || 
+	/^((?!chrome|android).)*safari/i.test(navigator.userAgent) ||
+	navigator.userAgent.toLowerCase().match(/(ipad|iphone)/)) {
+		swiper = new Swiper('.swiper', {
+			slidesPerView: 2,
+			longSwipes: false,
+			pagination: {
+				el: '.swiper-pagination',
+				clickable: true,
 			},
-			992: {
-				slidesPerView: 3.4,
+		})
+	} else{
+		swiper = new Swiper('.swiper', {
+			slidesPerView: 1,
+			slidesPerGroup: 1,
+			slidesPerGroupAuto: true,
+			longSwipes: false,
+			// slideToClickedSlide: true,
+			centeredSlides: true,
+			pagination: {
+				el: '.swiper-pagination',
+				clickable: true,
 			},
-		}
-	});
+			navigation: {
+				nextEl: '.swiper-button-next',
+				prevEl: '.swiper-button-prev',
+			},
+			breakpoints: {
+				320: {
+					slidesPerView: 1,
+					centeredSlides: false,
+				},
+				992: {
+					slidesPerView: 3.4,
+				},
+			}
+		})
+	}
 	
 	let defaultDelay = 3000;
 	let delay = defaultDelay;
