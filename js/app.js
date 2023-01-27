@@ -3,6 +3,7 @@ document.addEventListener('DOMContentLoaded', () => {
 	if (/Android|webOS|iPhone|iPad|iPod|BlackBerry|BB|PlayBook|IEMobile|Windows Phone|Kindle|Silk|Opera Mini/i.test(navigator.userAgent) || 
 	/^((?!chrome|android).)*safari/i.test(navigator.userAgent) ||
 	navigator.userAgent.toLowerCase().match(/(ipad|iphone)/)) {
+		screen.orientation.lock("portrait");
 		swiper = new Swiper('.swiper', {
 			slidesPerView: 2,
 			longSwipes: false,
