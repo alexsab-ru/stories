@@ -20,7 +20,7 @@ document.addEventListener('DOMContentLoaded', () => {
 				slidesPerView: 1,
 				centeredSlides: false,
 			},
-			640: {
+			992: {
 				slidesPerView: 3.4,
 			},
 		}
@@ -58,11 +58,9 @@ document.addEventListener('DOMContentLoaded', () => {
 	
 	function play() {
 		swiper.enable();
-		clearTimeout(timeout);
 		diffTime = time2 - time;
 		delay = defaultDelay - diffTime;
 		nextSlide(delay);
-		//time = Date.now();
 		document.body.classList.remove('paused');
 	}
 	
